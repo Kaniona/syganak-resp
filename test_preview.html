@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="kk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сығанақ — Ұмытылған қала, мәңгілік тарих</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-dim: #8a6d2f;
+      --dark-bg: #0d0b08;
+      --dark-surface: #161310;
+      --dark-card: #1e1a14;
+      --dark-raised: #252018;
+      --cream: #f0e6d0;
+      --text-muted: #9a8a72;
+      --teal-accent: #2a7a6e;
+
+      --font-title: 'Cinzel', serif;
+      --font-sub: 'Cormorant Garamond', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--dark-bg);
+      color: #c8b89a;
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.9;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(13, 11, 8, 0.0);
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .navbar.scrolled {
+      background: rgba(13, 11, 8, 0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gold);
+      padding: 15px 40px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-title);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      color: #c8b89a;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-family: var(--font-body);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* Common Components */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .diamond-row {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .diamond {
+      width: 12px;
+      height: 12px;
+      transform: rotate(45deg);
+      border: 1px solid var(--gold-dim);
+    }
+
+    .ornament-label {
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .ornament-label::before,
+    .ornament-label::after {
+      content: '——◆——';
+      opacity: 0.5;
+    }
+
+    .section-heading {
+      font-family: var(--font-title);
+      font-size: 42px;
+      color: var(--gold);
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .section-heading.center {
+      text-align: center;
+    }
+
+    /* Animation classes */
+    .reveal { opacity: 1 !important; transform: none !important; /*
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    .delay-4 {
+      transition-delay: 0.4s;
+    }
+
+    .delay-5 {
+      transition-delay: 0.5s;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      background: radial-gradient(circle at center, rgba(30, 25, 20, 1) 0%, var(--dark-bg) 70%);
+      text-align: center;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(rgba(201, 168, 76, 0.15) 1px, transparent 1px);
+      background-size: 4px 4px;
+      opacity: 0.2;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero-label {
+      font-family: var(--font-body);
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: var(--font-title);
+      font-size: clamp(60px, 8vw, 120px);
+      letter-spacing: 0.15em;
+      background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 80px rgba(201, 168, 76, 0.3);
+      margin-bottom: 20px;
+      line-height: 1.1;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+      transform: translateY(20px);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-tagline {
+      font-family: var(--font-sub);
+      font-size: 26px;
+      font-style: italic;
+      color: var(--cream);
+      margin-bottom: 40px;
+    }
+
+    .hero-author {
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 2px;
+      padding: 24px 48px;
+      display: inline-block;
+      color: #c8b89a;
+      line-height: 1.6;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .scroll-indicator span {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .scroll-indicator .arrow {
+      color: var(--gold);
+      font-size: 20px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-10px);
+      }
+
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* Tarikh Section */
+    .tarikh-section {
+      background-color: var(--dark-surface);
+      padding: 100px 0;
+    }
+
+    .tarikh-layout {
+      display: flex;
+      gap: 60px;
+    }
+
+    .chapters-col {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .timeline-col {
+      width: 40%;
+      padding-top: 20px;
+    }
+
+    .chapter-card {
+      background: var(--dark-card);
+      border-left: 2px solid var(--gold-dim);
+      padding: 32px;
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chapter-num {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-family: var(--font-title);
+      font-size: 72px;
+      color: rgba(201, 168, 76, 0.12);
+      line-height: 1;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .chapter-card h3 {
+      font-family: var(--font-title);
+      font-size: 24px;
+      color: var(--gold);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .chapter-card p {
+      position: relative;
+      z-index: 2;
+    }
+
+    .timeline {
+      border-left: 1px solid rgba(201, 168, 76, 0.2);
+      padding-left: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -36px;
+      top: 4px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--dark-surface);
+      border: 2px solid var(--gold);
+    }
+
+    .timeline-item.active .timeline-dot {
+      background: var(--gold);
+    }
+
+    .timeline-item h4 {
+      font-family: var(--font-title);
+      font-size: 16px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .timeline-item p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 900px) {
+      .tarikh-layout {
+        flex-direction: column;
+      }
+
+      .chapters-col,
+      .timeline-col {
+        width: 100%;
+      }
+    }
+
+    /* Ekspeditsiya Section */
+    .ekspeditsiya-section {
+      background-color: var(--cream);
+      padding: 100px 0;
+      color: #4a3c28;
+    }
+
+    .ekspeditsiya-section .section-heading {
+      color: #1a1208;
+      border-left: 4px solid var(--teal-accent);
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .ekspeditsiya-lead {
+      font-size: 18px;
+      margin-bottom: 50px;
+      max-width: 800px;
+    }
+
+    .exp-top-cards {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .exp-card {
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+      flex: 1;
+    }
+
+    .exp-card h3 {
+      font-family: var(--font-title);
+      color: #1a1208;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .exp-icon {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 20px;
+    }
+
+    .icon-target {
+      border: 2px solid var(--teal-accent);
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .icon-target::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px;
+      height: 16px;
+      background: var(--teal-accent);
+      border-radius: 50%;
+    }
+
+    .icon-people {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .icon-people div {
+      background: var(--teal-accent);
+      width: 10px;
+    }
+
+    .icon-people div:nth-child(1) {
+      height: 20px;
+    }
+
+    .icon-people div:nth-child(2) {
+      height: 32px;
+    }
+
+    .icon-people div:nth-child(3) {
+      height: 24px;
+    }
+
+    .icon-result {
+      position: relative;
+    }
+
+    .icon-result::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 32px;
+      height: 24px;
+      border: 2px solid var(--teal-accent);
+    }
+
+    .icon-result::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 16px;
+      width: 20px;
+      height: 30px;
+      border: 2px solid var(--teal-accent);
+      background: #fff;
+    }
+
+    .icon-history {
+      border: 2px solid var(--teal-accent);
+      width: 40px;
+      height: 30px;
+      position: relative;
+    }
+
+    .icon-history::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 10px;
+      width: 16px;
+      height: 6px;
+      border: 2px solid var(--teal-accent);
+      border-bottom: none;
+    }
+
+    .icon-map {
+      border: 2px solid var(--teal-accent);
+      width: 36px;
+      height: 36px;
+      position: relative;
+      transform: rotate(15deg);
+    }
+
+    .icon-map::after {
+      content: '+';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--teal-accent);
+      font-weight: bold;
+    }
+
+    .icon-nature {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 30px solid var(--teal-accent);
+      position: relative;
+      margin-bottom: 5px;
+    }
+
+    .icon-nature::after {
+      content: '';
+      position: absolute;
+      bottom: -35px;
+      left: -2px;
+      width: 4px;
+      height: 10px;
+      background: var(--teal-accent);
+    }
+
+    .exp-bottom-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .exp-bottom-card {
+      background: #ffffff;
+      border-radius: 4px;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+    }
+
+    .exp-bottom-card h3 {
+      font-family: var(--font-title);
+      color: #1a1208;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .exp-bottom-card ul {
+      margin-left: 20px;
+      margin-top: 10px;
+    }
+
+    .exp-bottom-card li {
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .exp-top-cards {
+        flex-direction: column;
+      }
+
+      .exp-bottom-card {
+        flex-direction: column;
+      }
+    }
+
+    /* Media Sections */
+    .media-section {
+      background-color: var(--dark-bg);
+      padding: 80px 0;
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .media-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .map-img {
+      width: 100%;
+      border: 2px solid var(--gold-dim);
+      border-radius: 2px;
+      display: block;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-top: 56.25%;
+      /* 16:9 */
+      border: 2px solid var(--gold-dim);
+      border-radius: 2px;
+      background: #000;
+    }
+
+    .video-wrapper video,
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .media-caption {
+      text-align: center;
+      margin-top: 20px;
+      font-family: var(--font-sub);
+      font-size: 20px;
+      color: var(--cream);
+      font-style: italic;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border: 1px solid var(--gold-dim);
+      border-radius: 2px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--dark-card);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+      transition: opacity 0.3s, transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(13, 11, 8, 0.8);
+      padding: 15px;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--cream);
+      border-top: 1px solid rgba(201, 168, 76, 0.3);
+    }
+
+    /* Facts Section */
+    .facts-section {
+      background-color: var(--dark-bg);
+      padding: 100px 0;
+    }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .fact-card {
+      background: var(--dark-card);
+      border-bottom: 2px solid var(--gold-dim);
+      padding: 30px 20px;
+      position: relative;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      min-width: 0;
+      /* Prevents overflow */
+    }
+
+    .fact-card:hover {
+      background: var(--dark-raised);
+      border-color: var(--gold);
+    }
+
+    .fact-ghost-num {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-family: var(--font-title);
+      font-size: 80px;
+      color: rgba(201, 168, 76, 0.08);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .fact-card p {
+      position: relative;
+      z-index: 2;
+      font-size: 15px;
+      color: #c8b89a;
+      margin-top: 60px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 1024px) {
+      .facts-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #080604;
+      padding: 60px 0 40px;
+      text-align: center;
+      border-top: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .footer .diamond-row {
+      margin-top: 0;
+    }
+
+    .footer-title {
+      font-family: var(--font-title);
+      font-size: 18px;
+      color: var(--gold);
+      margin-bottom: 15px;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-subtitle {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+
+    .footer-copy {
+      margin-top: 30px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: rgba(154, 138, 114, 0.5);
+      /* very muted text-muted */
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="nav-logo">СЫҒАНАҚ</a>
+    <div class="nav-links">
+      <a href="#tarikh">Тарих</a>
+      <a href="#ekspeditsiya">Экспедиция</a>
+      <a href="#karta">Карта</a>
+      <a href="#beine">Бейне</a>
+      <a href="#gallerya">Галерея</a>
+      <a href="#qoshymsha-beine">Мұрағат</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-label">САНДЫҚ МҰРА · ҚЫЗЫЛОРДА ОБЛЫСЫ</div>
+      <h1 class="hero-title">СЫҒАНАҚ</h1>
+      <p class="hero-tagline">Сырдария бойындағы ұлы қаланың із-дерегі.</p>
+
+      <div class="hero-author">
+        135 Асқар Тоқмағамбетов атындағы орта мектептің 8 А сынып оқушысы Ерболат Ақнұр<br>
+        Жетекші: Туякова Мөлдір Орынбекқызы
+      </div>
+
+      <div class="diamond-row">
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Төмен</span>
+      <div class="arrow">↓</div>
+    </div>
+  </section>
+
+  <!-- Тарих Section -->
+  <section id="tarikh" class="tarikh-section">
+    <div class="container">
+      <div class="ornament-label">Сығанақ Тарихы</div>
+      <h2 class="section-heading reveal">Тарих</h2>
+
+      <div class="tarikh-layout">
+        <div class="chapters-col">
+          <div class="chapter-card reveal delay-1">
+            <div class="chapter-num">01</div>
+            <h3>Қала және дәуірлер</h3>
+            <p>Сығанақ — Сырдарияның оң жағалауында орналасқан ортағасырлық қала орны. IX ғасырда қалыптасқан ол
+              XIII–XIV ғасырларда аймақтағы саяси және мәдени өмірдің маңызды орталығына айналды. Қала Жібек жолының
+              бағыттарын байланыстыратын сауда түйіні ретінде дамыды: қолөнершілер мен саудагерлер осында тоғысып, тауар
+              мен идея алмасқан. XIII ғасырдағы Моңғол шапқыншылығы қаланың тағдырына терең із қалдырды, бірақ кейінгі
+              ғасырларда өмір мен экономиканы қайта қалпына келтіру әрекеттері жүргізілді.</p>
+          </div>
+          <div class="chapter-card reveal delay-2">
+            <div class="chapter-num">02</div>
+            <h3>Алтын Орда дәуірі</h3>
+            <p>Алтын Орда кезеңінде Сығанақ аймақтық басқару мен сауда желілерінің бөлігі болып, Орта Азия мен дала
+              аймақтары арасындағы байланысты нығайтты. Қала қорғаныс құрылыстары мен базар алаңдарымен дамыды;
+              діни-мәдени ортаның ықпалы күшейді. Бұл дәуір қаланың сыртқы саудадағы рөлін кеңейтті және көп мәдениетті
+              қоғамның қалыптасуына ықпал етті.</p>
+          </div>
+          <div class="chapter-card reveal delay-3">
+            <div class="chapter-num">03</div>
+            <h3>Түсу және ұмытылу</h3>
+            <p>Саяси орталықтың ауысуы, су жолдарының өзгеруі және соғыстардың салдары қаланың экономикалық әл-ауқатын
+              нашарлатты. Уақыт өте келе тұрғындар саны азайды, ғимараттар бос қалды. Бүгінде Сығанақ археологиялық және
+              мәдени мұра ретінде зерттеледі: оның жерүсті және жерасты іздері бізге ортағасырлық Қазақстанның күрделі
+              тарихын түсіндіруге көмектеседі.</p>
+          </div>
+        </div>
+
+        <div class="timeline-col reveal delay-4">
+          <div class="timeline">
+            <div class="timeline-item active">
+              <div class="timeline-dot"></div>
+              <h4>IX–X ғғ.</h4>
+              <p>Қала орнының қалыптасуы, ерте сауда байланыстары.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h4>XIII–XIV ғғ.</h4>
+              <p>Даму шегі, Жібек жолы, Моңғол дәуірінің соққылары.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h4>Алтын Орда</h4>
+              <p>Өңірлік маңыз, сауда және мәдениет өркендеуі.</p>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h4>Соңғы ғасырлар</h4>
+              <p>Түсу, бос қалу, мұра ретінде зерттеу.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Біздің экспедиция Section -->
+  <section id="ekspeditsiya" class="ekspeditsiya-section">
+    <div class="container">
+      <h2 class="section-heading reveal">Біздің экспедиция</h2>
+      <p class="ekspeditsiya-lead reveal">Бұл бөлім «Менің Отаным — Қазақстан» республикалық туристік экспедиция жорығы
+        аясында Сырдария ауданы мектеп оқушыларының Сығанақ тарихи орнына арналған жобасы туралы баяндайды.</p>
+
+      <div class="exp-top-cards">
+        <div class="exp-card reveal delay-1">
+          <div class="exp-icon icon-target"></div>
+          <h3>Жобаның өзектілігі</h3>
+          <p>Сығанақ — Қазақстанның ортағасырлық тарихында ерекше орын алатын көне қалалардың бірі. Бұл аймақ тек
+            тарихи-мәдени мұрамен ғана емес, сонымен қатар табиғи-географиялық және экологиялық ерекшеліктерімен де
+            құнды.</p>
+        </div>
+        <div class="exp-card reveal delay-2">
+          <div class="exp-icon icon-people">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <h3>Жобаның мақсаты</h3>
+          <p>Сығанақ өңірін кешенді туристік-өлкетану экспедициясы арқылы (экологиялық, географиялық және тарихи-мәдени
+            бағыттарда) зерттеп, оның табиғи және тарихи құндылықтарын анықтау, сақтау және насихаттау.</p>
+        </div>
+        <div class="exp-card reveal delay-3">
+          <div class="exp-icon icon-result"></div>
+          <h3>Нәтиже</h3>
+          <p>Туристік бағыттың тұжырымдамасы, көрме немесе презентация материалдары және осы веб-сайт — экспедицияның
+            нәтижелерін жас ұрпаққа жеткізу құралы.</p>
+        </div>
+      </div>
+
+      <div class="ornament-label reveal delay-3" style="margin-top: 60px;">Зерттеу бағыттары</div>
+      <div class="exp-top-cards" style="margin-bottom: 60px;">
+        <div class="exp-card reveal delay-1">
+          <div class="exp-icon icon-history"></div>
+          <h3>Тарихи-мәдени бағыт</h3>
+          <ul style="margin-left: 20px; font-size: 15px;">
+            <li>Сығанақ қалашығының орнын зерттеу</li>
+            <li>Археологиялық нысандарды бақылау, сипаттау</li>
+            <li>Тарихи деректермен салыстыру</li>
+          </ul>
+        </div>
+        <div class="exp-card reveal delay-2">
+          <div class="exp-icon icon-map"></div>
+          <h3>Географиялық бағыт</h3>
+          <ul style="margin-left: 20px; font-size: 15px;">
+            <li>Жер бедерін, климаттық жағдайларды бақылау</li>
+            <li>Картаға түсіру, координаттарды белгілеу</li>
+          </ul>
+        </div>
+        <div class="exp-card reveal delay-3">
+          <div class="exp-icon icon-nature"></div>
+          <h3>Экологиялық бағыт</h3>
+          <ul style="margin-left: 20px; font-size: 15px;">
+            <li>Өсімдіктер мен жануарлар дүниесін бақылау</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-bottom-cards">
+        <div class="exp-bottom-card reveal delay-4">
+          <div class="exp-icon icon-target"></div>
+          <div>
+            <h3>Зерттеу нәтижелері</h3>
+            <p>Экспедиция барысында Сығанақ жері туралы нақты мәліметтер жиналды:</p>
+            <ul>
+              <li>Сығанақ қалашығының тарихи маңызы анықталды.</li>
+              <li>Жер бедері мен табиғи ерекшеліктері зерттелді.</li>
+              <li>Өсімдіктер мен экологиялық жағдайға бақылау жасалды.</li>
+              <li>Тарихи деректер мен өз бақылаулар салыстырылды.</li>
+              <li>Фото және жазбаша материалдар жинақталды.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="exp-bottom-card reveal delay-5">
+          <div class="exp-icon icon-people">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div>
+            <h3>Практикалық маңызы (ең маңыздысы)</h3>
+            <p>Бұл зерттеу жұмысының күнделікті өмірге және білімге пайдасы зор:</p>
+            <ul>
+              <li>Туған жерді тану: оқушы өз өлкесінің тарихын тереңірек біледі.</li>
+              <li>Зерттеу дағдысы дамиды: бақылау, жазу, талдау қабілеті артады.</li>
+              <li>Экологиялық тәрбие қалыптасады: табиғатты қорғауға үйренеді.</li>
+              <li>Туризмге үлес қосады: Сығанақ туралы ақпаратты басқаларға таныстырады.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Карта Section -->
+  <section id="karta" class="media-section">
+    <div class="container media-container">
+      <div class="ornament-label">Орналасуы</div>
+      <h2 class="section-heading center reveal">Карта</h2>
+      <div class="reveal">
+        <img src="./карта.jpeg" alt="Сығанақ қаласының картасы" class="map-img">
+        <p class="media-caption">Сығанақ қаласының тарихи картасы</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Бейне Section -->
+  <section id="beine" class="media-section">
+    <div class="container media-container">
+      <div class="ornament-label">Бейнематериал</div>
+      <h2 class="section-heading center reveal">Бейне</h2>
+      <div class="video-wrapper reveal">
+        <video controls>
+          <source src="./video1.mp4" type="video/mp4">
+          Сіздің браузеріңіз бейнені қолдамайды.
+        </video>
+      </div>
+      <p class="media-caption reveal">Жасөспірімдер экспедициясы — Сығанақ, 2026</p>
+    </div>
+  </section>
+
+  <!-- Галерея Section -->
+  <section id="gallerya" class="media-section">
+    <div class="container">
+      <div class="ornament-label">Суреттер</div>
+      <h2 class="section-heading center reveal">Галерея</h2>
+      <div class="gallery-grid">
+
+        <div class="gallery-item reveal delay-3">
+          <img src="./photo3.jpeg" alt="Сурет 3">
+          <div class="gallery-caption">Сурет 3</div>
+        </div>
+        <div class="gallery-item reveal delay-4">
+          <img src="./photo4.jpeg" alt="Сурет 4">
+          <div class="gallery-caption">Сурет 4</div>
+        </div>
+        <div class="gallery-item reveal delay-5">
+          <img src="./photo5.jpeg" alt="Сурет 5">
+          <div class="gallery-caption">Сурет 5</div>
+        </div>
+        <div class="gallery-item reveal delay-1">
+          <img src="./photo6.jpeg" alt="Сурет 6">
+          <div class="gallery-caption">Сурет 6</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Қызықты деректер Section -->
+  <section id="facts" class="facts-section">
+    <div class="container">
+      <div class="ornament-label">Білесіз бе?</div>
+      <h2 class="section-heading center reveal">Қызықты деректер</h2>
+
+      <div class="facts-grid">
+        <div class="fact-card reveal delay-1">
+          <div class="fact-ghost-num">1</div>
+          <p>Сығанақ IX–XIV ғасырларда өмір сүрді</p>
+        </div>
+        <div class="fact-card reveal delay-2">
+          <div class="fact-ghost-num">2</div>
+          <p>Орта Азиядағы маңызды сауда орталығы болды</p>
+        </div>
+        <div class="fact-card reveal delay-3">
+          <div class="fact-ghost-num">3</div>
+          <p>Моңғол шапқыншылығынан кейін қайта тұрды</p>
+        </div>
+        <div class="fact-card reveal delay-4">
+          <div class="fact-ghost-num">4</div>
+          <p>Қазіргі Сырдария ауданында орналасқан</p>
+        </div>
+        <div class="fact-card reveal delay-5">
+          <div class="fact-ghost-num">5</div>
+          <p>Жібек жолының маңызды тоғысында тұрды</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Қосымша бейнелер Section -->
+  <section id="qoshymsha-beine" class="media-section">
+    <div class="container media-container">
+      <div class="ornament-label">Мұрағат</div>
+      <h2 class="section-heading center reveal" style="font-size: 32px;">Сонақ ата ауылдық округінің бұрынғы әкімі,
+        Еңбек, Қызыл ту және Құрмет орденінің иегері - Қыстаубаева Әзия Абдықалыққызымен сұхбат</h2>
+
+      <div class="reveal"
+        style="display: flex; flex-direction: column; align-items: center; gap: 30px; margin-top: 40px;">
+        <img src="./qr-code(4).png" alt="QR Code 4"
+          style="max-width: 600px; width: 100%; border: 2px solid var(--gold-dim); border-radius: 2px;">
+        <h3 style="font-family: var(--font-title); font-size: 28px; color: var(--gold); margin: 0; text-align: center;">
+          Қызылорда Облыстық Ескерткіштерді Қорғау</h3>
+        <img src="./qr-code(5).png" alt="QR Code 5"
+          style="max-width: 600px; width: 100%; border: 2px solid var(--gold-dim); border-radius: 2px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="diamond-row">
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+        <div class="diamond"></div>
+      </div>
+      <div class="footer-title">Жоба — Менің Отаным — Қазақстан</div>
+      <div class="footer-subtitle">Сырдария ауданы Қызылорда облысы</div>
+      <div class="footer-copy">copyright 2026 Сығанақ Экспедициясы</div>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealOptions = {
+      threshold: 0.15,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, revealOptions);
+
+    revealElements.forEach(el => {
+      revealObserver.observe(el);
+    });
+  </script>
+</body>
+
+</html>
